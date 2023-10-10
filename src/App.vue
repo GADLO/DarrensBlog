@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <header>标题</header>
+  <header><span>Darren's Blog</span></header>
   <RouterView></RouterView>
 </template>
 
