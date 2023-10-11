@@ -1,2 +1,0 @@
-# DarrensBlog
-BlogWebsite
