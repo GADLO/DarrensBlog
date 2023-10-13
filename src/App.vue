@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <header><span>Darren's Blog</span></header>
+  <header><span class="logo">Hello Web</span></header>
   <RouterView></RouterView>
 </template>
 
@@ -29,5 +29,7 @@ header {
   border-bottom: .1px solid #6b6868;
   color: #EBEBEB99;
   padding: 5px;
+
+
 }
 </style>
