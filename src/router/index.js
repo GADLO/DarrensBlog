@@ -65,14 +65,14 @@ const routes = [
     component: () => import('../views/Weather.vue')
   },
   {
-    path: '/weather',
-    name: 'Weather',
-    component: () => import('../views/Weather.vue')
-  },
-  {
     path: '/note',
     name: 'Note',
     component: () => import('../views/Note.vue')
+  },
+  {
+    path: '/flexbox',
+    name: 'Flexbox',
+    component: () => import('../views/Flexbox.vue')
   },
 ]
 
