@@ -1,5 +1,12 @@
 <template>
   <div class="wrap">
+    <div class="carousel">
+      <el-carousel height="auto" pause-on-hover>
+        <el-carousel-item style="height:280px" v-for="item in 2" :key="item">
+          <h3 class="small justify-center" text="2xl" style="height:280px">{{ item }}</h3>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <div class="route-card" v-for="route in routeCard">
       <!-- <icon-base icon-name="huawei" width="80" height="80" iconColor="pink">
         <huawei />
@@ -9,6 +16,7 @@
 
 
     </div>
+    <!-- <marked-template markdown=""></marked-template> -->
 
   </div>
 </template>
@@ -19,6 +27,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter, onBeforeRouteUpdate, onBeforeRouteLeave } from 'vue-router';
 import IconBase from '../components/icons/IconBase.vue';
 import huawei from '../components/icons/svgTemplate/huawei.vue';
+import MarkedTemplate from '@/components/marked/MarkedTemplate.vue'
 
 
 export default {
@@ -33,7 +42,8 @@ export default {
   components: {
     Login,
     IconBase,
-    huawei
+    huawei,
+    MarkedTemplate
   },
 
   setup() {
@@ -62,20 +72,25 @@ export default {
 <style lang='scss' scoped>
 .wrap {
   margin: 0 auto;
-  padding-top: 48px;
+  // padding-top: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   height: 70vh;
-  width: 50vw;
+  width: 100vw;
   flex-wrap: wrap;
   // background-color: #1a1a1a;
+
+  .carousel {
+    height: 280px;
+    width: 100%;
+    background-color: #f2f2f2;
+  }
 
   a {
     text-decoration: none;
     color: #EBEBEB99;
-
   }
 
   .route-card {
@@ -107,5 +122,21 @@ export default {
       transition: all .3s;
     }
   }
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+  text-align: center;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
 }
 </style>

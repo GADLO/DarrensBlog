@@ -11,6 +11,8 @@ export default {
     props: ['markdown'],
     setup(props) {
 
+        // const fileMD = require.context('@/markdown', true, /\.md$/);
+
         marked.setOptions({
             highlight: function (code) {
                 return highlight.highlightAuto(code).value;
