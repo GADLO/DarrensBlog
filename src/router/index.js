@@ -50,9 +50,9 @@ const routes = [
     component: () => import('../views/RouterGuard.vue')
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue')
+    path: '/essays',
+    name: 'Essays',
+    component: () => import('../views/Essays.vue')
   },
   {
     path: '/watch',

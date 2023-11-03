@@ -25,14 +25,19 @@ export default {
 
 <template>
   <header><span class="logo" @click="home">Frontend</span>
-    <div>
+
+    <div class="menu">
+      <span @click="home">Frontend</span>
+      <span @click="home">Frontend</span>
       <el-avatar class="text-green-600 text-lg bg-sky-200"> D </el-avatar>
     </div>
   </header>
-  <RouterView></RouterView>
+  <div class="main">
+    <RouterView></RouterView>
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 header {
   box-sizing: border-box;
   display: flex;
@@ -45,11 +50,23 @@ header {
   padding: 5px;
   padding: 0 28px;
 
-
   .logo {
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
     cursor: pointer;
   }
+
+  .menu {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+  }
+}
+
+.main {
+  height: calc(100% - 58px);
+  border: 1px solid #ccc;
 }
 </style>

@@ -2,8 +2,8 @@
   <div class="wrap">
     <div class="carousel">
       <el-carousel height="auto" pause-on-hover>
-        <el-carousel-item style="height:280px" v-for="item in 2" :key="item">
-          <h3 class="small justify-center" text="2xl" style="height:280px">{{ item }}</h3>
+        <el-carousel-item style="height:280px" v-for="item in carouselItem">
+          <h3 class="small justify-center" text="2xl" style="height:280px">{{ item.node.title }}</h3>
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -11,24 +11,30 @@
       <!-- <icon-base icon-name="huawei" width="80" height="80" iconColor="pink">
         <huawei />
       </icon-base> -->
-      <router-link :to="route.path">{{ route.name }}
-      </router-link>
+      <div class="card">
+        <router-link :to="route.path">{{ route.name }}
+        </router-link>
+      </div>
+
 
 
     </div>
     <!-- <marked-template markdown=""></marked-template> -->
-
+    <el-button @click="fetchData">请求数据</el-button>
   </div>
 </template>
 
 <script  >
 import Login from './Login.vue';
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter, onBeforeRouteUpdate, onBeforeRouteLeave } from 'vue-router';
-import IconBase from '../components/icons/IconBase.vue';
-import huawei from '../components/icons/svgTemplate/huawei.vue';
-import MarkedTemplate from '@/components/marked/MarkedTemplate.vue'
-
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import IconBase from '@/components/icons/IconBase.vue';
+import huawei from '@/components/icons/svgTemplate/huawei.vue';
+import MarkedTemplate from '@/components/marked/MarkedTemplate.vue';
+import { useQuery } from '@vue/apollo-composable'
+import { indexQuery } from '@/queries/markdownQuery.js'
+import { useArticleStore } from '@/stores/Article'
+import { storeToRefs } from 'pinia'
 
 export default {
   name: 'HomeView',
@@ -47,6 +53,38 @@ export default {
   },
 
   setup() {
+    const store = useArticleStore(),
+      { articles } = storeToRefs(store),
+      { addArticle } = store;
+
+
+    let res = ref({}), carouselItem = ref([]);
+    function fetchData() {
+      let { result } = useQuery(indexQuery);
+      console.log('请求中', result);
+
+      return result
+    }
+
+    res = fetchData();
+    if (res.value) {
+      carouselItem = res?.value?.repository?.issues?.edges;
+      addArticle(carouselItem);
+      console.log(articles.value.githubData);
+
+    } else {
+      carouselItem = [
+        {
+          node: {
+            title: '数据请求失败'
+          }
+        }
+      ]
+    }
+    // console.log('carouselItem', carouselItem);
+
+
+
     const route = useRoute(),
       router = useRouter();
 
@@ -56,14 +94,11 @@ export default {
 
     const routeCard = router.options.routes;
 
-    // 与 beforeRouteLeave 相同，无法访问 `this`
-    onBeforeRouteUpdate((to, from) => { console.log('beforeRouteUpdate'); });
 
-    // 在导航离开渲染该组件的对应路由时调用
-    // 与 beforeRouteUpdate 相同，无法访问 `this`
-    onBeforeRouteLeave((to, from) => { console.log('beforeRouteLeave'); });
+
+
     return {
-      routeCard, input
+      routeCard, input, carouselItem, fetchData
     }
   }
 }
@@ -102,24 +137,27 @@ export default {
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
-    border: px solid #D7FFFE;
-    border-radius: 5px;
-    // background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%);
-    // box-shadow: 2px 2px 20px #d8d8d8;
+    border-radius: 25px;
     color: #EBEBEB99;
+    background: linear-gradient(130deg, #42d392 25%, #647eff);
+    transition: ease-in-out .3s;
 
-    background: linear-gradient(#222, #222),
-      linear-gradient(130deg, #42d392 25%, #647eff);
-    background-origin: padding-box, border-box;
-
-    background-repeat: no-repeat;
-    /* this is important */
-    border: 3px solid transparent;
-
+    .card {
+      background-color: #fff;
+      border-radius: 20px;
+      width: 95%;
+      height: 92%;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      align-items: center;
+      background-color: #767474;
+      // opacity: .9;
+    }
 
     &:hover {
       transform: scale(1.05);
-      transition: all .3s;
+      transition: ease-in-out .3s;
     }
   }
 }
