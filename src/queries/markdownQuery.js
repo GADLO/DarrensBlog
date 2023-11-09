@@ -7,6 +7,7 @@ repository(owner: "GADLO", name: "markdown") {
           node {
                 title
                 url
+                body
                 bodyHTML
                 updatedAt
             }

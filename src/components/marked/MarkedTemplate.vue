@@ -5,6 +5,8 @@
 <script >
 import { marked } from 'marked';
 import highlight from 'highlight.js'
+import { ref } from "vue";
+
 
 export default {
     name: 'MarkedTemplate',
@@ -12,15 +14,15 @@ export default {
     setup(props) {
 
         // const fileMD = require.context('@/markdown', true, /\.md$/);
-
+        let html = ref('')
         marked.setOptions({
             highlight: function (code) {
                 return highlight.highlightAuto(code).value;
             }
         })
 
-        const html = marked(props.markdown);
-
+        html.value = marked(props.markdown);
+        console.log(html.value);
         return {
             html
         }

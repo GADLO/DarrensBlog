@@ -20,7 +20,7 @@
 
     </div>
     <!-- <marked-template markdown=""></marked-template> -->
-    <el-button @click="fetchData">请求数据</el-button>
+    <el-button @click="refetch">请求数据</el-button>
   </div>
 </template>
 
@@ -30,7 +30,7 @@ import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import IconBase from '@/components/icons/IconBase.vue';
 import huawei from '@/components/icons/svgTemplate/huawei.vue';
-import MarkedTemplate from '@/components/marked/MarkedTemplate.vue';
+
 import { useQuery } from '@vue/apollo-composable'
 import { indexQuery } from '@/queries/markdownQuery.js'
 import { useArticleStore } from '@/stores/Article'
@@ -49,7 +49,7 @@ export default {
     Login,
     IconBase,
     huawei,
-    MarkedTemplate
+
   },
 
   setup() {
@@ -58,19 +58,15 @@ export default {
       { addArticle } = store;
 
 
-    let res = ref({}), carouselItem = ref([]);
-    function fetchData() {
-      let { result } = useQuery(indexQuery);
-      console.log('请求中', result);
+    let res = ref({}), carouselItem = ref();
 
-      return result
-    }
+    let { result, refetch } = useQuery(indexQuery);
 
-    res = fetchData();
-    if (res.value) {
-      carouselItem = res?.value?.repository?.issues?.edges;
+
+    if (result.value) {
+      carouselItem.value = result?.value?.repository?.issues?.edges;
       addArticle(carouselItem);
-      console.log(articles.value.githubData);
+      // console.log(articles.value.githubData);
 
     } else {
       carouselItem = [
@@ -83,22 +79,14 @@ export default {
     }
     // console.log('carouselItem', carouselItem);
 
-
-
     const route = useRoute(),
       router = useRouter();
-
-    const input = ref(null);
-
 
 
     const routeCard = router.options.routes;
 
-
-
-
     return {
-      routeCard, input, carouselItem, fetchData
+      routeCard, carouselItem, refetch, result
     }
   }
 }
