@@ -3,8 +3,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client/core";
 function getHeaders() {
     const headers = {};
 
-    headers['Authorization'] = `bearer ${import.meta.env.VITE_GRAPHQL_AUTH_TOKEN_A + import.meta.env.VITE_GRAPHQL_AUTH_TOKEN_B + import.meta.env.VITE_GRAPHQL_AUTH_TOKEN_C + import.meta.env.VITE_GRAPHQL_AUTH_TOKEN_D
-        }`
+    headers['Authorization'] = `bearer ${window.atob(import.meta.env.VITE_GRAPHQL_AUTH_TOKEN)}`
     headers["Content-Type"] = "application/json";
     return headers;
 }
