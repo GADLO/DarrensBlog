@@ -10,6 +10,13 @@ repository(owner: "GADLO", name: "markdown") {
                 body
                 bodyHTML
                 updatedAt
+                labels(first:5) {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                }
             }
         }
     }
