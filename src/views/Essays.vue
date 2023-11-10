@@ -44,7 +44,6 @@ export default {
     name: 'Essay',
     components: {
         // EssayTemplate
-
     },
     setup() {
 
@@ -53,10 +52,8 @@ export default {
             { addArticle } = store;
 
         let isCollapse = false, curArticle = ref('');
-        console.log(articles.githubData);
+        // console.log(articles.githubData);
         function openArticle(data) {
-
-
             marked.setOptions({
                 highlight: function (code) {
                     return highlight.highlightAuto(code).value;

@@ -35,6 +35,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { indexQuery } from '@/queries/markdownQuery.js'
 import { useArticleStore } from '@/stores/Article'
 import { storeToRefs } from 'pinia'
+import { onUpdated, onMounted } from 'vue'
 
 export default {
   name: 'HomeView',
@@ -53,21 +54,34 @@ export default {
   },
 
   setup() {
+    let carouselItem = ref();
+    let { result, refetch, onResult } = useQuery(indexQuery);
+
+    onUpdated(() => {
+      refetch()
+    })
+
+    onMounted(() => {
+      onResult((res) => {
+        console.log('onResult', res)
+        carouselItem.value = res.data.repository?.issues?.edges;
+        addArticle(carouselItem);
+
+      })
+    })
+
+    const route = useRoute(),
+      router = useRouter();
+    //主页卡片集合获取
+    const routeCard = router.options.routes;
+
     const store = useArticleStore(),
       { articles } = storeToRefs(store),
       { addArticle } = store;
 
-
-    let res = ref({}), carouselItem = ref();
-
-    let { result, refetch } = useQuery(indexQuery);
-
-
     if (result.value) {
-      carouselItem.value = result?.value?.repository?.issues?.edges;
-      addArticle(carouselItem);
-      // console.log(articles.value.githubData);
 
+      // console.log(articles.value.githubData);
     } else {
       carouselItem = [
         {
@@ -77,13 +91,11 @@ export default {
         }
       ]
     }
-    // console.log('carouselItem', carouselItem);
-
-    const route = useRoute(),
-      router = useRouter();
 
 
-    const routeCard = router.options.routes;
+
+
+
 
     return {
       routeCard, carouselItem, refetch, result
