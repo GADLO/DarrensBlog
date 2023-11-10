@@ -1,0 +1,1 @@
+import{_ as e,u as r,a as t,o,c as a}from"./index-82620b2c.js";const s={name:"RouterLearn",setup(){r(),t()}};function n(u,c,p,_,l,f){return o(),a("div",null,"routerlearn")}const i=e(s,[["render",n]]);export{i as default};
