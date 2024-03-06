@@ -35,41 +35,29 @@ export const debounce = function (fn, delay, triggerNow) {
 }
 
 
-export const debounce2 = function (fn, delay, triggerNow) {
-    var timer = null;
+export const practice = function (fn, delay, triggerNow) {
 
-    var debounced = function () {
-        var _self = this,
-            args = arguments;
-
-        if (timer) clearTimeout(timer);
-
-        if (triggerNow) {
-            var callNow = !timer;
-
-            timer = setTimeout(function () {
-                timer = null
-            }, delay)
-
-            if (callNow) {
-                fn.apply(_self, args)
-            }
-        } else {
-
-        }
-    }
 }
 
-export const throttle = function (fn, wait, options = {}) {
-    let timeout, context, args, result;
-    let previous = 0;
+export const throttle = function (fn, delay) {
+    var t = null,
+        begin = new Date().getTime;
 
-    //later函数在节流时间过后执行，重置状态并执行目标函数
-    let later = function () {
-        //如果禁用了首次执行，则重置previous，否则更新为当前时间
-        previous = options.leading === false ? 0 : Date.now();
+    return function () {
+        var _self = this,
+            args = arguments,
+            cur = new Date().getTime();
 
-        timeout = null; //清除定时器
+        clearTimeout(t);
+
+        if (cur - begin >= delay) {
+            fn.apply(_self, args);
+            begin = cur;
+        } else {
+            t = setTimeout(function () {
+                fn.apply(_self, args);
+            }, delay);
+        }
     }
 }
 

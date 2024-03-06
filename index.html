@@ -10,13 +10,25 @@
     html,
     body {
       height: 100%;
+      width: 100%;
     }
 
     body {
       margin: 0;
+
+      /* 隐藏滚动条 */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      -ms-overflow-style: none;
+      /* IE和Edge */
+      scrollbar-width: none;
+      /* Firefox */
     }
 
     #app {
+      box-sizing: border-box;
       height: 100%;
       position: relative;
     }

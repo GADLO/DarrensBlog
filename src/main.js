@@ -13,7 +13,7 @@ import "highlight.js/styles/paraiso-light.css";
 import App from './App.vue';
 import router from './router';
 
-console.log(apolloClient);
+// console.log(apolloClient);
 
 const app = createApp({
     setup() {

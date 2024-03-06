@@ -1,126 +1,142 @@
 <template>
   <div class="wrap">
-    <div class="carousel">
-      <el-carousel height="auto" pause-on-hover>
-        <el-carousel-item style="height:280px" v-for="item in carouselItem">
-          <h3 class="small justify-center" text="2xl" style="height:280px">{{ item.node.title }}</h3>
-        </el-carousel-item>
-      </el-carousel>
+
+    <div class="cube-container">
+      <div class="cube">
+        <div class="face front">CSS</div>
+        <div class="face back">JavaScript</div>
+        <div class="face right">HTML</div>
+        <div class="face left">VUE</div>
+        <div class="face top">REACT</div>
+        <div class="face bottom">ANGULAR</div>
+      </div>
     </div>
-    <div class="route-card" v-for="route in routeCard">
-      <!-- <icon-base icon-name="huawei" width="80" height="80" iconColor="pink">
-        <huawei />
-      </icon-base> -->
-      <div class="card">
-        <router-link :to="route.path">{{ route.name }}
-        </router-link>
+    <div class="time-flow">
+      <div class="route-card" v-for="route in routeCard" :key="route.path">
+        <div class="card">
+          <router-link :to="route.path">{{ route.name }}</router-link>
+        </div>
       </div>
 
-
-
     </div>
-    <!-- <marked-template markdown=""></marked-template> -->
-    <el-button @click="refetch">请求数据</el-button>
   </div>
 </template>
 
-<script  >
-import Login from './Login.vue';
-import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import IconBase from '@/components/icons/IconBase.vue';
-import huawei from '@/components/icons/svgTemplate/huawei.vue';
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-import { useQuery } from '@vue/apollo-composable'
-import { indexQuery } from '@/queries/markdownQuery.js'
-import { useArticleStore } from '@/stores/Article'
-import { storeToRefs } from 'pinia'
-import { onUpdated, onMounted } from 'vue'
+const routeCard = useRouter().options.routes;
 
-export default {
-  name: 'HomeView',
-  beforeRouteEnter(to, from) {
-    console.log('beforeRouteEnter');
-    // 在渲染该组件的对应路由被验证前调用
-    // 不能获取组件实例 `this` ！
-    // 因为当守卫执行时，组件实例还没被创建！
-  },
-
-  components: {
-    Login,
-    IconBase,
-    huawei,
-
-  },
-
-  setup() {
-    let carouselItem = ref();
-    let { result, refetch, onResult } = useQuery(indexQuery);
-
-    onUpdated(() => {
-      refetch()
-    })
-
-    onMounted(() => {
-      onResult((res) => {
-        console.log('onResult', res)
-        carouselItem.value = res.data.repository?.issues?.edges;
-        addArticle(carouselItem);
-
-      })
-    })
-
-    const route = useRoute(),
-      router = useRouter();
-    //主页卡片集合获取
-    const routeCard = router.options.routes;
-
-    const store = useArticleStore(),
-      { articles } = storeToRefs(store),
-      { addArticle } = store;
-
-    if (result.value) {
-
-      // console.log(articles.value.githubData);
-    } else {
-      carouselItem = [
-        {
-          node: {
-            title: '数据请求失败'
-          }
-        }
-      ]
-    }
-
-
-
-
-
-
-    return {
-      routeCard, carouselItem, refetch, result
-    }
-  }
-}
 </script>
+
+
 
 <style lang='scss' scoped>
 .wrap {
-  margin: 0 auto;
-  // padding-top: 48px;
+  width: 80%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  height: 70vh;
-  width: 100vw;
-  flex-wrap: wrap;
-  // background-color: #1a1a1a;
+  overflow: auto;
+  flex-direction: column;
+  padding-top: 90px;
 
-  .carousel {
-    height: 280px;
-    width: 100%;
-    background-color: #f2f2f2;
+
+  .cube-container {
+    width: 200px;
+    height: 200px;
+    perspective: 800px;
+    margin: 50px auto;
+
+    .cube {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      animation: rotate 15s infinite linear;
+    }
+
+    .face {
+      font-weight: bold;
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      color: rgb(21, 153, 214);
+      font-size: 28px;
+      text-align: center;
+      line-height: 200px;
+      background: transparent;
+      opacity: 0.9;
+      border: 2px solid;
+      border-image: linear-gradient(90deg,
+          rgba(14, 8, 110, 1) 0%,
+          rgba(15, 15, 167, 1) 26%,
+          rgba(20, 45, 255, 1) 85%);
+      box-shadow: 0 0 100px rgba(8, 178, 245, 0.61);
+    }
+
+    .front {
+      transform: translateZ(100px);
+      background-color: #0093e9;
+      background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    }
+
+    .back {
+      transform: rotateY(180deg) translateZ(100px);
+      background-color: #0093e9;
+      background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    }
+
+    .right {
+      transform: rotateY(90deg) translateZ(100px);
+      background-color: #0093e9;
+      background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    }
+
+    .left {
+      transform: rotateY(-90deg) translateZ(100px);
+      background-color: #0093e9;
+      background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    }
+
+    .top {
+      transform: rotateX(90deg) translateZ(100px);
+      background-color: #0093e9;
+      background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    }
+
+    .bottom {
+      transform: rotateX(-90deg) translateZ(100px);
+      background-color: #0093e9;
+      background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    }
+
+    &:hover .cube {
+      animation-play-state: paused;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotateX(0) rotateY(0) rotateZ(0);
+      }
+
+      100% {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+      }
+    }
+
+  }
+
+  .time-flow {
+    height: 60%;
+    backdrop-filter: blur(10px);
+    // background-color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 40px;
   }
 
   a {
@@ -132,49 +148,29 @@ export default {
     font-size: 20px;
     font-weight: bold;
     width: 180px;
-    height: 120px;
+    height: 250px;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
     border-radius: 25px;
     color: #EBEBEB99;
-    background: linear-gradient(130deg, #42d392 25%, #647eff);
-    transition: ease-in-out .3s;
+    transition: .3s;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
 
     .card {
-      background-color: #fff;
-      border-radius: 20px;
-      width: 95%;
-      height: 92%;
+      border-radius: 17px;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: space-around;
       flex-direction: column;
       align-items: center;
-      background-color: #767474;
-      // opacity: .9;
     }
 
     &:hover {
       transform: scale(1.05);
-      transition: ease-in-out .3s;
     }
   }
-}
-
-.el-carousel__item h3 {
-  color: #475669;
-  opacity: 0.75;
-  line-height: 300px;
-  margin: 0;
-  text-align: center;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
 }
 </style>

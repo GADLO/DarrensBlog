@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import Creative from '../views/Creative.vue';
 
 // 导航被触发。
 // 在失活的组件里调用 beforeRouteLeave 守卫。
@@ -25,10 +26,22 @@ function removeHash(to) {
 }
 
 const routes = [
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: HomeView,
+  //   // 路由配置上定义 beforeEnter 守卫
+  //   //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
+  //   beforeEnter: (to, from) => {
+  //     console.log('before into home route');
+  //   },
+
+
+  // },
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'creative',
+    component: Creative,
     // 路由配置上定义 beforeEnter 守卫
     //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
     beforeEnter: (to, from) => {

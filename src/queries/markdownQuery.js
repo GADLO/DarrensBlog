@@ -5,6 +5,7 @@ repository(owner: "GADLO", name: "markdown") {
     issues(last: 20, states: OPEN) {
         edges {
           node {
+                id
                 title
                 url
                 body
@@ -22,3 +23,5 @@ repository(owner: "GADLO", name: "markdown") {
     }
 }
 }`
+
+
