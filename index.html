@@ -10,19 +10,31 @@
     html,
     body {
       height: 100%;
+      width: 100%;
     }
 
     body {
       margin: 0;
+
+      /* 隐藏滚动条 */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      -ms-overflow-style: none;
+      /* IE和Edge */
+      scrollbar-width: none;
+      /* Firefox */
     }
 
     #app {
+      box-sizing: border-box;
       height: 100%;
       position: relative;
     }
   </style>
-  <script type="module" crossorigin src="./assets/index-82620b2c.js"></script>
-  <link rel="stylesheet" href="./assets/index-dec7bb0c.css">
+  <script type="module" crossorigin src="./assets/index-e16bc7d4.js"></script>
+  <link rel="stylesheet" href="./assets/index-0f27772e.css">
 </head>
 
 <body>
