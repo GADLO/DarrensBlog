@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import Creative from '../views/Creative.vue';
 import Login from '@/views/MainLogin/index.vue'
 import Interview from '@/views/interview/Button/parent.vue'
-import OriginApi from '@/views/OriginApi/index.vue'
+import OriginApi from '@/views/OriginApi'
 
 import { generateChildrenRoutes } from './config';
 
@@ -23,12 +23,12 @@ import { generateChildrenRoutes } from './config';
 
 //获取文件夹下的vue文件路径
 const originApiPaths = import.meta.glob('@/views/OriginApi/**/*.vue');
-console.log(originApiPaths);
+// console.log(originApiPaths);
 
 //循环路径获取path和name，注入路由配置
 const originApiRoutes = generateChildrenRoutes(originApiPaths)
 
-console.log(originApiRoutes);
+// console.log(originApiRoutes);
 
 function removeQueryParams(to) {
   if (Object.keys(to.query).length)
@@ -78,7 +78,7 @@ const routes = [
   },
   {
     path: '/originapi',
-    name: 'originApi',
+    name: 'originapi',
     component: OriginApi,
     children: [
       ...originApiRoutes
