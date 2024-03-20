@@ -3,6 +3,7 @@
     <p>侦听器
         监听依赖
     </p>
+    <h1 ref="titleRef">titileRef{{ title }}</h1>
     <h1>{{ title }}</h1>
     <h1>{{ content }}</h1>
     <h1>{{ name }}</h1>
@@ -83,8 +84,38 @@ export default {
         })
 
 
+        //想要拿到DOM更新之后的innerText，使用flush：'pre | post | sync
+        const titleRef = ref(null);
+
+        watch(title, () => {
+            //默认情况下，组件更新前被调用
+            //获取的value是组件更新之前的值
+            console.log('默认情况下，组件更新前被调用,获取的value是组件更新之前的值:', titleRef.value.innerText);
+        })
+
+        //创建watch立即执行
+        watch(title, () => {
+            console.log('创建watch立即执行');
+        }, {
+            immidiate: true
+        })
+
+
+        watch(title, () => {
+
+        }, {
+            onTrack(e) {
+                //侦听器侦听行为被创建的时候触发
+                console.log('onTrack');
+            },
+            onTrigger(e) {
+                //依赖被修改的时候被触发
+                console.log('onTrigger');
+            }
+        })
 
         return {
+            titleRef,
             title,
             setTitle,
             content,
