@@ -12,9 +12,11 @@
       </div>
     </div>
     <div class="time-flow">
-      <div class="route-card" v-for="route in routeCard" :key="route.path">
+      <div class="route-card">
         <div class="card">
-          <router-link :to="route.path">{{ route.name }}</router-link>
+          <router-link :to="'/creative'">
+            <div>{{ greeting }}</div>
+          </router-link>
         </div>
       </div>
 
@@ -23,16 +25,51 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted, onUnmounted } from 'vue';
 
-const routeCard = useRouter().options.routes;
+
+let greeting = ref('');
+let autoplayInterval
+let currentIndex = ref(0)
+const welcomes = ref(['Welcome', 'Bienvenido', '欢迎', 'أهلا بك', 'Bem-vindo', 'Добро пожаловать', 'ようこそ', 'Willkommen', 'Bienvenue', 'Benvenuto', '환영합니다', 'Hoş geldiniz', 'خوش آمدید', 'स्वागत है', 'Karibu', 'Selamat datang'])
+
+
+
+
+const startAutoplay = () => {
+  autoplayInterval = setInterval(() => {
+    greeting.value = welcomes.value[currentIndex.value]
+    currentIndex.value === welcomes.value.length ? currentIndex.value = 0 : currentIndex.value++
+  }, 3000);
+};
+
+const stopAutoplay = () => {
+  clearInterval(autoplayInterval);
+};
+
+onMounted(() => {
+  startAutoplay();
+});
+
+onUnmounted(() => {
+  stopAutoplay();
+});
 
 </script>
 
 
 
 <style lang='scss' scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .wrap {
   width: 80%;
   height: 100%;
@@ -49,13 +86,14 @@ const routeCard = useRouter().options.routes;
     height: 200px;
     perspective: 800px;
     margin: 50px auto;
+    margin-bottom: 100px;
 
     .cube {
       position: relative;
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      animation: rotate 15s infinite linear;
+      animation: rotate 20s infinite linear;
     }
 
     .face {
@@ -130,8 +168,8 @@ const routeCard = useRouter().options.routes;
   }
 
   .time-flow {
-    height: 60%;
-    backdrop-filter: blur(10px);
+    height: 20%;
+    // backdrop-filter: blur(10px);
     // background-color: rgba(255, 255, 255, 0.4);
     display: flex;
     gap: 20px;
@@ -141,19 +179,19 @@ const routeCard = useRouter().options.routes;
 
   a {
     text-decoration: none;
-    color: #EBEBEB99;
+    color: #413f3f99;
   }
 
   .route-card {
     font-size: 20px;
     font-weight: bold;
-    width: 180px;
-    height: 250px;
+    width: 230px;
+    height: 80px;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 40px;
     color: #EBEBEB99;
     transition: .3s;
     box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
@@ -170,6 +208,12 @@ const routeCard = useRouter().options.routes;
 
     &:hover {
       transform: scale(1.05);
+      background-color: aliceblue;
+
+
+      a {
+        color: #38373799;
+      }
     }
   }
 }

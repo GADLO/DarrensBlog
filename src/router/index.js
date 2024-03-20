@@ -1,6 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import Creative from '../views/Creative.vue';
+import Login from '@/views/MainLogin/index.vue'
+import Interview from '@/views/interview/Button/parent.vue'
+
+import { generateChildrenRoutes } from './config';
 
 // 导航被触发。
 // 在失活的组件里调用 beforeRouteLeave 守卫。
@@ -16,6 +20,15 @@ import Creative from '../views/Creative.vue';
 // 调用 beforeRouteEnter 守卫中传给 next 的回调函数，创建好的组件实例会作为回调函数的参数传入。
 
 
+//获取文件夹下的vue文件路径
+const originApiPaths = import.meta.glob('@/views/OriginApi/**/*.vue');
+console.log(originApiPaths);
+
+//循环路径获取path和name，注入路由配置
+const originApiRoutes = generateChildrenRoutes(originApiPaths)
+
+console.log(originApiRoutes);
+
 function removeQueryParams(to) {
   if (Object.keys(to.query).length)
     return { path: to.path, query: {}, hash: to.hash }
@@ -26,20 +39,18 @@ function removeHash(to) {
 }
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView,
-  //   // 路由配置上定义 beforeEnter 守卫
-  //   //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
-  //   beforeEnter: (to, from) => {
-  //     console.log('before into home route');
-  //   },
-
-
-  // },
   {
     path: '/',
+    name: 'home',
+    component: HomeView,
+    // 路由配置上定义 beforeEnter 守卫
+    //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
+    beforeEnter: (to, from) => {
+      console.log('before into home route');
+    },
+  },
+  {
+    path: '/creative',
     name: 'creative',
     component: Creative,
     // 路由配置上定义 beforeEnter 守卫
@@ -47,46 +58,32 @@ const routes = [
     beforeEnter: (to, from) => {
       console.log('before into home route');
     },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    // 路由配置上定义 beforeEnter 守卫
+    //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
+    beforeEnter: (to, from) => {
+      console.log('before into home route');
+    },
+  },
+  {
+    path: '/interview',
+    name: 'interview',
+    component: Interview,
 
+  },
+  {
+    path: '/originapi',
+    name: 'originApi',
+    component: () => import('@/views/OriginApi/index.vue'),
+    children: [
+      ...originApiRoutes
+    ]
+  },
 
-  },
-  {
-    path: '/router/:path',
-    name: 'RouterLearn',
-    component: () => import('../views/RouterLearn.vue'),
-    //可以将一个函数数组传递给 beforeEnter，这在为不同的路由重用守卫时很有用
-    beforeEnter: [removeQueryParams, removeHash],
-  },
-  {
-    path: '/routerguard',
-    name: 'RouterGuard',
-    component: () => import('../views/RouterGuard.vue')
-  },
-  {
-    path: '/essays',
-    name: 'Essays',
-    component: () => import('../views/Essays.vue')
-  },
-  {
-    path: '/watch',
-    name: 'Watch',
-    component: () => import('../views/Watch.vue')
-  },
-  {
-    path: '/weather',
-    name: 'Weather',
-    component: () => import('../views/Weather.vue')
-  },
-  {
-    path: '/note',
-    name: 'Note',
-    component: () => import('../views/Note.vue')
-  },
-  {
-    path: '/flexbox',
-    name: 'Flexbox',
-    component: () => import('../views/Flexbox.vue')
-  },
 ]
 
 

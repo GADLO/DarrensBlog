@@ -86,6 +86,8 @@ export const flatten = function flatten(arr) {
     return fArr;
 
     function _isArr(item) {
-        return {}.toString.call(item) === '[object Array]';
+        return ({}).toString.call(item) === '[object Array]';
     }
 }
+
+

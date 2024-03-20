@@ -10,8 +10,7 @@ export default {
     HomeView
   },
   setup() {
-    let arr = [1, 2, [3, 4, [5, 6]]]
-    console.log(flatten(arr));
+
     const router = useRouter();
 
     function home() {
@@ -91,13 +90,22 @@ header {
 
   //   );
 
-  background: linear-gradient(-45deg, #ff6188 0%, #fc9867 13%, #ffd866 25%, #a9dc76 38%, #78dce8 50%, #ab9df2 62%, #ffd866 75%, #a9dc76 87%, #78dce8 100%);
+  background: linear-gradient(-45deg,
+      #ff6188 0%,
+      #fc9867 13%,
+      #ffd866 25%,
+      #a9dc76 38%,
+      #78dce8 50%,
+      #ab9df2 62%,
+      #ffd866 75%,
+      #a9dc76 87%,
+      #78dce8 100%);
   // height: calc(100% - 58px);
   // border: 1px solid #ccc;
 
-  background-size: 800% 800%;
+  background-size: 600% 600%;
   /* 循环动画 - 原理4 */
-  animation: gradientBG 20s ease infinite;
+  animation: gradientBG 50s ease infinite;
 }
 
 @keyframes gradientBG {

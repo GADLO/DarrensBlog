@@ -2,17 +2,25 @@
     <div class="wrap">
 
         <div class="card gradient-border" ref="card" v-for='item in projectNames'>
-            <div class="card_content">{{ item }}</div>
+            <router-link :to="`/${item.toLowerCase()}`">
+                <div class="card_content">{{ item }}</div>
+            </router-link>
+
         </div>
     </div>
 </template>
 
 <script >
 import { ref, onMounted, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
     name: '',
     setup() {
+
+        const router = useRouter().options.routes
+
+        //生成随机长度英文字符
         function generateRandomString(minLength, maxLength) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
@@ -23,6 +31,7 @@ export default {
             return randomString;
         }
 
+        //生成随机长度中文字符
         function generateRandomChineseString(minLength, maxLength) {
             // 中文常用字符的Unicode编码范围是0x4e00到0x9fa5
             const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
@@ -36,23 +45,20 @@ export default {
         }
 
         // 创建项目名称数组
-        let projectNames = [];
-        for (let i = 0; i < 22; i++) {
-            projectNames.push(generateRandomChineseString(3, 10)); // 假设项目名称长度在5到10个字符之间
-        }
+        let projectNames = router.map((item, ind) => { return item.name });
+
+        console.log(projectNames);
 
 
-
+        //动态控制按钮宽度
         const updateMessage = async () => {
-
-
             await nextTick();
 
             // 现在DOM已经更新了
             let cards = document.querySelectorAll('.card') // 'Hello, Vue 3!'
             for (let i = 0; i < cards.length; i++) {
                 let textLen = cards[i].textContent.length
-                cards[i].style.width = `${textLen * 5 + 200}px`;
+                cards[i].style.width = `${textLen * 17 + 100}px`;
                 // cards[i].style.height = `${50 * Math.random() + 100}px`
                 console.log('card', cards[i].textContent);
             }
@@ -104,16 +110,18 @@ export default {
     font-size: 1.5rem;
     text-transform: uppercase;
     background: #222;
-    border: 4px solid #888888;
+    // border: 4px solid #888888;
     background-color: #f4f5f6;
     border-radius: var(--border-width);
     outline: none;
     box-shadow: 0px 0px 0px #ffffff, 0px 0px 0px #ffffff, 0px 0px 0px #ffffff, 6px 20px 25px rgba(0, 0, 0, 0.2);
     transition: .13s ease-in-out;
     cursor: pointer;
+    box-shadow: inset 0px -8px 0px #dddddd, 0px -8px 0px #f4f5f6;
 
     .card_content {
-        box-shadow: inset 0px -8px 0px #dddddd, 0px -8px 0px #f4f5f6;
+
+        // box-shadow: inset 0px -8px 0px #dddddd, 0px -8px 0px #f4f5f6;
         border-radius: 44px;
         height: 100%;
         width: 100%;
