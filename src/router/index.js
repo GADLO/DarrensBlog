@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue';
 import Creative from '../views/Creative.vue';
 import Login from '@/views/MainLogin/index.vue'
 import Interview from '@/views/interview/Button/parent.vue'
-import OriginApi from '@/views/OriginAPI/index.vue'
+import OriginApi from '@/views/OriginApi/index.vue'
 
 import { generateChildrenRoutes } from './config';
 
