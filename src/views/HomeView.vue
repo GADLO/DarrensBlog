@@ -28,7 +28,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 
-let greeting = ref('');
+let greeting = ref('Welcome');
 let autoplayInterval
 let currentIndex = ref(0)
 const welcomes = ref(['Welcome', 'Bienvenido', '欢迎', 'أهلا بك', 'Bem-vindo', 'Добро пожаловать', 'ようこそ', 'Willkommen', 'Bienvenue', 'Benvenuto', '환영합니다', 'Hoş geldiniz', 'خوش آمدید', 'स्वागत है', 'Karibu', 'Selamat datang'])

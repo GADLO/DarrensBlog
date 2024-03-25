@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import dayjs from 'dayjs'
 import HomeView from '../views/HomeView.vue';
 import Creative from '../views/Creative.vue';
 import Login from '@/views/MainLogin/index.vue'
@@ -100,7 +101,9 @@ const router = createRouter({
 let isAuthenticated = true;
 
 router.beforeEach((to, from) => {
-  let date = new Date().getTime();
+  let date = dayjs().format('YYYYMMDDHHmmss');
+
+
 
   console.log(`beforeEach`, `:${date}`, to.name);
   if (

@@ -24,11 +24,11 @@ export default {
         const router = useRouter()
         const routes = useRouter().options.routes
         const originApiRoutes = routes[4].children
-        console.log(originApiRoutes);
+        // console.log(originApiRoutes);
 
         function routeClick(currentRoute) {
             console.log(currentRoute);
-            router.push(`/Originapi/${currentRoute}`)
+            router.push(`/Originapi/${currentRoute.toLowerCase()}`)
         }
 
         function back() {

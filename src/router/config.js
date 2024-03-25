@@ -11,7 +11,7 @@ export const generateChildrenRoutes = (path) => {
         return {
             path: name,
             name: name,
-            component: () => import(`../views/OriginApi/${name}.vue`),
+            component: () => import(`@/views/OriginApi/${name}.vue`),
         };
     });
 
