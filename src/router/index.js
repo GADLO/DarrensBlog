@@ -42,7 +42,7 @@ function removeHash(to) {
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView,
     // 路由配置上定义 beforeEnter 守卫
@@ -78,8 +78,8 @@ const routes = [
 
   },
   {
-    path: '/originapi',
-    name: 'originapi',
+    path: '/vueoriginapi',
+    name: 'vueoriginapi',
     component: OriginApi,
     children: [
       ...originApiRoutes

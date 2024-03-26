@@ -119,6 +119,8 @@ export default {
     cursor: pointer;
     box-shadow: inset 0px -8px 0px #dddddd, 0px -8px 0px #f4f5f6;
 
+    border-bottom: 4px solid #838585;
+
     .card_content {
 
         // box-shadow: inset 0px -8px 0px #dddddd, 0px -8px 0px #f4f5f6;
@@ -127,6 +129,7 @@ export default {
         width: 100%;
         display: grid;
         place-items: center;
+        margin-bottom: 8px;
     }
 
     &:active {

@@ -15,7 +15,7 @@
     "axios": "^1.5.0",
     "dayjs": "^1.11.10",
     "element-plus": "^2.3.14",
-    "graphql": "^16.8.1",
+    "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
     "highlight.js": "^11.8.0",
     "marked": "^9.0.3",
