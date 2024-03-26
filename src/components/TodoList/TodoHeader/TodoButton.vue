@@ -4,8 +4,10 @@
 
 <script setup>
 
-function addTodo() {
+const emit = defineEmits(['addTodo'])
 
+function addTodo() {
+    emit('addTodo')
 }
 
 

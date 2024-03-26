@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span :style="{ textDecoration: item.completed ? 'line-through' : '' }">
         {{ item.content }}
     </span>
 </template>
@@ -8,7 +8,12 @@
 
 const { item } = defineProps({ item: Object })
 
-console.log(item);
+// console.log(item);
 </script>
 
-<style lang='scss' scoped></style>
+<style lang='scss' scoped>
+span {
+    color: whitesmoke;
+    margin: 0 20px;
+}
+</style>

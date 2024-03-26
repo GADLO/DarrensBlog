@@ -1,15 +1,14 @@
 <template>
-    <input type="checkbox" :checked="item.completed" @click="todoCheck(item.id)">
+    <input type="checkbox" :checked="item.completed" @click="toggleCompleted(item.id)">
 </template>
 
-
 <script setup>
+const { item } = defineProps({ item: Object });
+const emit = defineEmits(['toggleCompleted'])
 
-function todoCheck() {
-
+function toggleCompleted(id) {
+    emit('toggleCompleted', id)
 }
-
-const item = defineProps(['item'])
 </script>
 
 <style lang='scss' scoped></style>

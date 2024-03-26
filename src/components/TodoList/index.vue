@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <todo-header></todo-header>
-        <todos :todos="todoList"> </todos>
+        <todo-header @add-todo="addTodo"></todo-header>
+        <todos :todos="todoList" @toggle-completed="toggleCompleted" @remove-todo="removeTodo"> </todos>
         <todo-footer></todo-footer>
     </div>
 </template>
@@ -14,14 +14,33 @@ import TodoFooter from './TodoFooter/index.vue'
 import { ref, provide, reactive } from 'vue';
 
 
+
+
+
+let todoList = ref([])
+
 provide('plh', '请输入')
-const todoList = ref([{
-    id: 1,
-    content: 'todo',
-    completed: false
-}])
+
+provide('todoLen', todoList)
 function addTodo(todo) {
-    todoList.push(todo)
+
+    todoList.value.push(todo)
+    // console.log(todoList);
+}
+
+function toggleCompleted(id) {
+
+    // console.log(id);
+    todoList.value.forEach(item => {
+        if (item.id === id) {
+            item.completed = !item.completed
+        }
+    })
+}
+
+function removeTodo(id) {
+
+    todoList.value = todoList.value.filter(item => item.id !== id)
 }
 
 

@@ -1,16 +1,38 @@
 <template>
     <div>
-        <todo-item v-for="item in props.todos" :item="item"></todo-item>
+        <todo-item v-if="len.length > 0" v-for="item in todos" :item="item" @toggle-completed="toggleCompleted"
+            @remove-todo="removeTodo"></todo-item>
+
+        <p v-else>空</p>
     </div>
 </template>
 
 <script setup>
-import { toRef, toRefs } from 'vue';
+
+import { inject, watch } from 'vue';
 import TodoItem from './TodoItem.vue'
 
 
-const props = defineProps({ todos: Array })
+let len = inject('todoLen')
 
+
+watch(len, () => {
+    console.log('len change');
+}, {
+    deep: true
+})
+console.log(len);
+
+const { todos } = defineProps({ todos: Array })
+const emit = defineEmits(['toggleCompleted', 'removeTodo'])
+
+function toggleCompleted(id) {
+    emit('toggleCompleted', id)
+}
+
+function removeTodo(id) {
+    emit('removeTodo', id)
+}
 
 
 
