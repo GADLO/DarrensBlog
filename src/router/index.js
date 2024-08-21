@@ -42,7 +42,7 @@ function removeHash(to) {
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView,
     // 路由配置上定义 beforeEnter 守卫
