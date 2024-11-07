@@ -1,13 +1,13 @@
-<script >
+<script>
 import { RouterLink, RouterView } from 'vue-router';
 import { useRoute, useRouter } from 'vue-router';
 import { debounce, flatten } from '@/utils/tools.js'
 
-import HomeView from "@/views/HomeView.vue"
+import Home from "@/views/Home.vue"
 
 export default {
   components: {
-    HomeView
+    Home
   },
   setup() {
 

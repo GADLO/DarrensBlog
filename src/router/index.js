@@ -1,10 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import dayjs from 'dayjs'
-import HomeView from '../views/HomeView.vue';
-import Creative from '../views/Creative.vue';
-import Login from '@/views/MainLogin/index.vue'
-import Interview from '@/views/interview/Button/parent.vue'
-import OriginApi from '@/views/OriginAPI/index.vue'
+import Home from '../views/Home.vue';
+
 
 import { generateChildrenRoutes } from './config';
 
@@ -44,47 +41,15 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: Home,
     // 路由配置上定义 beforeEnter 守卫
     //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
     beforeEnter: (to, from) => {
       console.log('before into home route');
     },
   },
-  {
-    path: '/creative',
-    name: 'creative',
-    component: Creative,
-    // 路由配置上定义 beforeEnter 守卫
-    //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
-    beforeEnter: (to, from) => {
-      console.log('before into home route');
-    },
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login,
-    // 路由配置上定义 beforeEnter 守卫
-    //beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发。
-    beforeEnter: (to, from) => {
-      console.log('before into home route');
-    },
-  },
-  {
-    path: '/interview',
-    name: 'interview',
-    component: Interview,
 
-  },
-  {
-    path: '/vueoriginapi',
-    name: 'vueoriginapi',
-    component: OriginApi,
-    children: [
-      ...originApiRoutes
-    ]
-  },
+
 
 ]
 
